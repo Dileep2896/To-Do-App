@@ -26,11 +26,6 @@ public class MainActivity extends AppCompatActivity {
         tvToDo = findViewById(R.id.tvToDo);
         tvQuote = findViewById(R.id.tvQuote);
 
-        // Enabling Full Screen And Adding Action Bar.
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Objects.requireNonNull(getSupportActionBar()).hide();
-
         // Animations
         btnAddWork.setAlpha(0);
         btnAddWork.animate().setDuration(800).alpha(1);
