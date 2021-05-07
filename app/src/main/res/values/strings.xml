@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">To Do</string>
+    <string name="let_s_add_some_work">Let\'s Add Some Work</string>
+    <string name="never_forget_your_next_move">Never Forget Your Next Move!</string>
+    <string name="todo">ToDo</string>
 </resources>
