@@ -1,13 +1,15 @@
 package com.technologybit.todo;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.view.View;
+public class CategoryActivity extends AppCompatActivity implements DialogAdd.DialogAddListener {
 
-import java.util.Objects;
-
-public class CategoryActivity extends AppCompatActivity {
+    String newCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,6 @@ public class CategoryActivity extends AppCompatActivity {
     public void addButtonClicked(View view) {
         openDialog();
     }
-
     public void goBackClicked(View view) {
         finish();
     }
@@ -27,6 +28,11 @@ public class CategoryActivity extends AppCompatActivity {
     public void openDialog() {
         DialogAdd dialogAdd = new DialogAdd();
         dialogAdd.show(getSupportFragmentManager(), "Add Category");
+    }
+
+    @Override
+    public void addTexts(String Category) {
+
     }
 
 }
