@@ -50,9 +50,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor viewData() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + DB_TABLE;
-        Cursor cursor = db.rawQuery(query, null);
 
-        return cursor;
+        return db.rawQuery(query, null);
+        // The Above Code Performs Same As Below
+        // Cursor cursor = db.rawQuery(query, null);
+        // return cursor;
     }
 
     // create method to get id
@@ -60,8 +62,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + ID + " FROM " + DB_TABLE
                 + " WHERE " + C_NAME + " = '" + cName + "'";
-        Cursor cursor = db.rawQuery(query, null);
-        return cursor;
+
+        return db.rawQuery(query, null);
+        // The Above Code Performs Same As Below
+        // Cursor cursor = db.rawQuery(query, null);
+        // return cursor;
     }
 
     // create method to delete data

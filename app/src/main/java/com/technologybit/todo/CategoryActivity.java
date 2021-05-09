@@ -1,19 +1,14 @@
 package com.technologybit.todo;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 
 public class CategoryActivity extends AppCompatActivity implements DialogAdd.DialogAddListener {
@@ -29,22 +24,24 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
+        // Initialising
         listViewCategory = findViewById(R.id.listViewCategory);
         db = new DatabaseHelper(this);
 
-        categoryList = new ArrayList<String>();
+        // Created a new arraylist to display data
+        categoryList = new ArrayList<>();
+        // Calling read data from the database
         retrieveData();
 
-        listViewCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String cName = adapterView.getItemAtPosition(i).toString();
-
-                deleteData(cName);
-            }
+        // List View Item Listener To Delete Data From The List View
+        listViewCategory.setOnItemClickListener((adapterView, view, i, l) -> {
+            String cName = adapterView.getItemAtPosition(i).toString();
+            deleteData(cName);
         });
 
     }
+
+// ------------------------------- WORKING WITH DIALOG BOX ------------------------------------- //
 
     // Opening Dialog Box When Add is clicked
     public void addButtonClicked(View view) {
@@ -67,6 +64,11 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
         storeData(Category);
     }
 
+// ----------------------------- END WORKING WITH DIALOG BOX ----------------------------------- //
+
+// --------------------------------- WORKING WITH DATABASES ------------------------------------ //
+
+    // Storing Data In Database
     public void storeData(String Category) {
         if (!Category.equals("") && db.insertData(Category)) {
             Log.i("Category", "DATA ADDED");
@@ -77,6 +79,7 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
         }
     }
 
+    // Reading Data From Database
     public void retrieveData() {
         Cursor cursor = db.viewData();
 
@@ -89,12 +92,13 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
             }
         }
 
-        arrayAdapter = new ArrayAdapter<String>(this,
+        arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, categoryList);
         listViewCategory.setAdapter(arrayAdapter);
 
     }
 
+    // Deleting Data From Database
     public void deleteData(String name) {
         Cursor cursor = db.getItemID(name);
         int itemID = -1;
@@ -111,5 +115,6 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
         }
     }
 
+// -------------------------------- END WORKING WITH DATABASES -------------------------------- //
 
 }
