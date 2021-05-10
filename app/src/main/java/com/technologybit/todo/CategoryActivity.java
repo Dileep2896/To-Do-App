@@ -2,21 +2,31 @@ package com.technologybit.todo;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
+
 import java.util.ArrayList;
 
 public class CategoryActivity extends AppCompatActivity implements DialogAdd.DialogAddListener {
 
-    ListView listViewCategory;
+    SwipeMenuListView listViewCategory;
     ArrayList<String> categoryList;
     ArrayAdapter<String> arrayAdapter;
     DatabaseHelper db;
+    ViewGroup.LayoutParams layoutParams;
+    boolean alternativeColor = true;
 
     @SuppressLint("CommitPrefEdits")
     @Override
@@ -34,10 +44,10 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
         retrieveData();
 
         // List View Item Listener To Delete Data From The List View
-        listViewCategory.setOnItemClickListener((adapterView, view, i, l) -> {
-            String cName = adapterView.getItemAtPosition(i).toString();
-            deleteData(cName);
-        });
+//        listViewCategory.setOnItemClickListener((adapterView, view, i, l) -> {
+//            String cName = adapterView.getItemAtPosition(i).toString();
+//            deleteData(cName);
+//        });
 
     }
 
@@ -81,8 +91,8 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
 
     // Reading Data From Database
     public void retrieveData() {
-        Cursor cursor = db.viewData();
 
+        Cursor cursor = db.viewData();
         if(cursor.getCount() == 0) {
             Toast.makeText(CategoryActivity.this, "No Data To Show",
                     Toast.LENGTH_SHORT).show();
@@ -92,9 +102,29 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
             }
         }
 
-        arrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, categoryList);
+        arrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, categoryList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+                View view = super.getView(position,convertView,parent);
+                layoutParams = view.getLayoutParams();
+                TextView tv = view.findViewById(android.R.id.text1);
+                view = customizeListview(view, tv);
+                return view;
+            }
+        };
+
+        listViewCategory.setMenuCreator(creator);
         listViewCategory.setAdapter(arrayAdapter);
+
+        listViewCategory.setOnMenuItemClickListener((position, menu, index) -> {
+            String cName = arrayAdapter.getItem(position);
+            if (index == 0) {// open
+                deleteData(cName);
+            }
+            // false : close the menu; true : not close the menu
+            return false;
+        });
 
     }
 
@@ -115,6 +145,42 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
         }
     }
 
-// -------------------------------- END WORKING WITH DATABASES -------------------------------- //
+// -------------------------------- Customize List View Items --------------------------------- //
+
+    public View customizeListview(View view, TextView tv) {
+        //Define your height here.
+        layoutParams.height = 200;
+        view.setLayoutParams(layoutParams);
+        view.setPadding(100, 0, 0, 0);
+        tv.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
+        tv.setTextSize(20);
+        if (alternativeColor) {
+            view.setBackgroundColor(Color.rgb(228, 251, 255));
+            tv.setTextColor(Color.rgb(56, 62, 86));
+            alternativeColor = false;
+        } else {
+            view.setBackgroundColor(Color.rgb(159, 216, 223));
+            tv.setTextColor(Color.rgb(56, 62, 86));
+            alternativeColor = true;
+        }
+        return view;
+    }
+
+// ------------------------------ Set Creator For The ListView --------------------------------- //
+
+    SwipeMenuCreator creator = menu -> {
+        // create "delete" item
+        SwipeMenuItem deleteItem = new SwipeMenuItem(
+                getApplicationContext());
+        // set item background
+        deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                0x3F, 0x25)));
+        // set item width
+        deleteItem.setWidth(200);
+        // set a icon
+        deleteItem.setIcon(R.drawable.ic_baseline_delete_24);
+        // add to menu
+        menu.addMenuItem(deleteItem);
+    };
 
 }

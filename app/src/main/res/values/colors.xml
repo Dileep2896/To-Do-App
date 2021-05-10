@@ -10,6 +10,7 @@
     <color name="Light_Cyan">#E2FDFF</color>
     <color name="True_Blue">#3066BE</color>
     <color name="Button_Color">#3d84b8</color>
+    <color name="Button_Light_Color">#ecf3f8</color>
     <color name="Text_Color">#3d84b8</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
