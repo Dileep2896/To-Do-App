@@ -3,7 +3,7 @@
     <style name="Theme.ToDo" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/Neon_Blue</item>
-        <item name="colorPrimaryVariant">@color/Cornflower_blue</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

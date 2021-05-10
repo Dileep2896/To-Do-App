@@ -1,6 +1,7 @@
 package com.technologybit.todo;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -25,8 +26,7 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
     ArrayList<String> categoryList;
     ArrayAdapter<String> arrayAdapter;
     DatabaseHelper db;
-    ViewGroup.LayoutParams layoutParams;
-    boolean alternativeColor = true;
+//    boolean alternativeColor = true;
 
     @SuppressLint("CommitPrefEdits")
     @Override
@@ -40,15 +40,28 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
 
         // Created a new arraylist to display data
         categoryList = new ArrayList<>();
+
         // Calling read data from the database
         retrieveData();
 
-        // List View Item Listener To Delete Data From The List View
-//        listViewCategory.setOnItemClickListener((adapterView, view, i, l) -> {
-//            String cName = adapterView.getItemAtPosition(i).toString();
-//            deleteData(cName);
-//        });
+    }
 
+// ------------------------------  When Info Button Is Clicked --------------------------------- //
+
+    public void btnInfo(View view) {
+        new AlertDialog.Builder(this)
+                .setTitle("\t How To Use The App?")
+                .setMessage("\t 1) ' + ' - This button is used to add an" +
+                        "\n\t item to your remainder. \n\n" +
+                        "\t 2) You can swipe right the items to" +
+                        "\n\t delete the item from the lists. \n\n" +
+                        "\t 3) ' <- ' Can be used to go back to" +
+                        "\n\t the home page. \n\n\n" +
+                        "\t Enjoy The App And Please Leave A" +
+                        "\n\t Review To Improve User Experience.")
+                .setPositiveButton("OK", (dialogInterface, i) -> {
+                })
+                .show();
     }
 
 // ------------------------------- WORKING WITH DIALOG BOX ------------------------------------- //
@@ -73,8 +86,6 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
     public void addTexts(String Category) {
         storeData(Category);
     }
-
-// ----------------------------- END WORKING WITH DIALOG BOX ----------------------------------- //
 
 // --------------------------------- WORKING WITH DATABASES ------------------------------------ //
 
@@ -106,11 +117,10 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
                 android.R.layout.simple_list_item_1, categoryList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
-                View view = super.getView(position,convertView,parent);
-                layoutParams = view.getLayoutParams();
-                TextView tv = view.findViewById(android.R.id.text1);
-                view = customizeListview(view, tv);
-                return view;
+                View rView = super.getView(position,convertView,parent);
+                TextView tv = rView.findViewById(android.R.id.text1);
+                rView = customizeListview(rView, tv, position);
+                return rView;
             }
         };
 
@@ -119,7 +129,7 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
 
         listViewCategory.setOnMenuItemClickListener((position, menu, index) -> {
             String cName = arrayAdapter.getItem(position);
-            if (index == 0) {// open
+            if (index == 0) {
                 deleteData(cName);
             }
             // false : close the menu; true : not close the menu
@@ -147,21 +157,18 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
 
 // -------------------------------- Customize List View Items --------------------------------- //
 
-    public View customizeListview(View view, TextView tv) {
+    public View customizeListview(View view, TextView tv, int position) {
         //Define your height here.
-        layoutParams.height = 200;
-        view.setLayoutParams(layoutParams);
-        view.setPadding(100, 0, 0, 0);
+        view.setPadding(100, 50, 0, 50);
         tv.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
         tv.setTextSize(20);
-        if (alternativeColor) {
+        tv.setTextColor(Color.rgb(56, 62, 86));
+        if (position % 2 == 0) {
             view.setBackgroundColor(Color.rgb(228, 251, 255));
-            tv.setTextColor(Color.rgb(56, 62, 86));
-            alternativeColor = false;
+            //            alternativeColor = false;
         } else {
             view.setBackgroundColor(Color.rgb(159, 216, 223));
-            tv.setTextColor(Color.rgb(56, 62, 86));
-            alternativeColor = true;
+            //            alternativeColor = true;
         }
         return view;
     }
