@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnAddWork;
+    Button btnAddWork, btnPass;
     TextView tvToDo, tvQuote;
 
     @Override
@@ -21,10 +21,14 @@ public class MainActivity extends AppCompatActivity {
         btnAddWork = findViewById(R.id.btnAddWork);
         tvToDo = findViewById(R.id.tvToDo);
         tvQuote = findViewById(R.id.tvQuote);
+        btnPass = findViewById(R.id.btnPass);
 
         // Animations
         btnAddWork.setAlpha(0);
         btnAddWork.animate().setDuration(800).alpha(1);
+
+        btnPass.setAlpha(0);
+        btnPass.animate().setDuration(800).alpha(1);
 
         tvToDo.setAlpha(0);
         tvToDo.animate().setDuration(800).alpha(1);
@@ -42,4 +46,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void btnPasswords(View view) {
+
+        Intent intent = new Intent(MainActivity.this, PasswordActivity.class);
+        startActivity(intent);
+
+    }
+
 }

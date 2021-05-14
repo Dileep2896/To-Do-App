@@ -2,51 +2,41 @@ package com.technologybit.todo;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import java.util.Objects;
+
 public class DialogAdd extends AppCompatDialogFragment {
 
-    private EditText etAddCategory;
+    public EditText etAddCategory;
     private DialogAddListener listener;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_input, null);
 
         builder.setView(view)
                 .setTitle("Add Category")
-                .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String category = etAddCategory.getText().toString();
-                        listener.addTexts(category);
-                    }
+                .setPositiveButton("ADD", (dialogInterface, i) -> {
+                    String category = etAddCategory.getText().toString();
+                    listener.addTexts(category);
                 });
 
         etAddCategory = view.findViewById(R.id.etAddCategory);
-
-//        builder.setTitle("Add Category")
-//                .setMessage("Add A New Category")
-//                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
+        etAddCategory.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        etAddCategory.requestFocus();
 
         return builder.create();
     }

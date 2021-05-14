@@ -1,6 +1,18 @@
 <resources>
-    <string name="app_name">To Do</string>
+    <string name="app_name">ToDo</string>
     <string name="let_s_add_some_work">Let Add Some Work</string>
     <string name="never_forget_your_next_move">Never Forget Your Next Move!</string>
     <string name="todo">ToDo</string>
+    <string name="back">back</string>
+    <string name="info">info</string>
+    <string name="add">add</string>
+    <string name="add_a_category">Add A Category</string>
+    <string name="manager_passwords">Manager Passwords</string>
+    <string name="password_manager">Password Manager</string>
+    <string name="backpassword">TODO</string>
+    <string name="addPassword">TODO</string>
+    <string name="create_password">Create Password</string>
+    <string name="generate_password">Generate Password</string>
+    <string name="password">Password</string>
+    <string name="username_email">Username / Email</string>
 </resources>

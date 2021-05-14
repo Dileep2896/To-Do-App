@@ -4,12 +4,14 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_finallogo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_finallogo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ToDo"
-        android:fullBackupContent="@xml/backup_descriptor">
+        android:theme="@style/Theme.ToDo">
+        <activity android:name=".PasswordAdding" />
+        <activity android:name=".PasswordActivity" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -26,7 +26,6 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
     ArrayList<String> categoryList;
     ArrayAdapter<String> arrayAdapter;
     DatabaseHelper db;
-//    boolean alternativeColor = true;
 
     @SuppressLint("CommitPrefEdits")
     @Override
@@ -70,6 +69,7 @@ public class CategoryActivity extends AppCompatActivity implements DialogAdd.Dia
     public void addButtonClicked(View view) {
         openDialog();
     }
+
     // Back Button Function
     public void goBackClicked(View view) {
         finish();
