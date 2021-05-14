@@ -3,6 +3,8 @@ package com.technologybit.todo;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,7 +37,7 @@ public class PasswordAdding extends AppCompatActivity {
             // TODO Add extras or a data URI to this intent as appropriate.
             resultIntent.putExtra("password", passwordInputs);
             resultIntent.putExtra("user", userInputs);
-            setResult(RESULT_OK, resultIntent);
+            setResult(RESULT_FIRST_USER, resultIntent);
             finish();
         }
     }
@@ -43,6 +45,7 @@ public class PasswordAdding extends AppCompatActivity {
     public void btnGenerate(View view) {
 
         tvPassword.getText().clear();
+        tvPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         String password = gn.generatePassword();
         tvPassword.setText(password, TextView.BufferType.EDITABLE);
 

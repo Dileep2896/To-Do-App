@@ -9,8 +9,8 @@
     <string name="add_a_category">Add A Category</string>
     <string name="manager_passwords">Manager Passwords</string>
     <string name="password_manager">Password Manager</string>
-    <string name="backpassword">TODO</string>
-    <string name="addPassword">TODO</string>
+    <string name="backpassword">back password</string>
+    <string name="addPassword">add password</string>
     <string name="create_password">Create Password</string>
     <string name="generate_password">Generate Password</string>
     <string name="password">Password</string>
