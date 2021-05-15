@@ -15,4 +15,6 @@
     <string name="generate_password">Generate Password</string>
     <string name="password">Password</string>
     <string name="username_email">Username / Email</string>
+    <string name="copy">TODO</string>
+    <string name="go_back">Go Back</string>
 </resources>

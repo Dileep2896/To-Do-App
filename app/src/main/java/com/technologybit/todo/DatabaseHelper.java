@@ -9,15 +9,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Category.db";
+
+    // category table
     private static final String DB_TABLE = "Category_Table";
 
-    //columns
+    // columns
     private static final String ID = "ID";
     private static final String C_NAME = "C_NAME";
 
     private static final String CREATE_TABLE = "CREATE TABLE " + DB_TABLE + " (" +
             ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             C_NAME + " TEXT " + ")";
+
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, 1);
@@ -26,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE);
+
     }
 
     @Override
@@ -76,4 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 " = '" + id + "' AND " + C_NAME + " = '" + cName + "'";
         db.execSQL(query);
     }
+
+
+
 }
