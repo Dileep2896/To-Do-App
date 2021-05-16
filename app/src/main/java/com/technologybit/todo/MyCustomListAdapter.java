@@ -13,12 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-
 import java.util.List;
 
 public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {
@@ -45,7 +41,7 @@ public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {
         @SuppressLint({"ViewHolder", "InflateParams"})
         View view = inflater.inflate(R.layout.my_list_view, null);
 
-        GradientDrawable bgShape = (GradientDrawable)view.getBackground();
+        GradientDrawable bgShape = (GradientDrawable) view.getBackground();
 
         TextView username = view.findViewById(R.id.tvUsername);
         TextView password = view.findViewById(R.id.tvPasswordField);
@@ -79,5 +75,4 @@ public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {
         return view;
 
     }
-
 }

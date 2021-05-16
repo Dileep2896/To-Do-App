@@ -3,9 +3,6 @@ package com.technologybit.todo;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,8 +30,6 @@ public class PasswordActivity extends AppCompatActivity {
         passListView = findViewById(R.id.passListView);
         db = new DatabasePasswordHelper(this);
         ps = new ArrayList<>();
-
-        // create a arraylist
 
         retrieveData();
 
@@ -89,9 +84,7 @@ public class PasswordActivity extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 String username = cursor.getString(1);
                 String password = cursor.getString(2);
-
                 ps.add(new PasswordManagerList(username, password));
-
             }
         }
 
@@ -106,7 +99,6 @@ public class PasswordActivity extends AppCompatActivity {
             if (index == 0) {
                 String user = item.getUsername();
                 String password = item.getPassword();
-                Log.i("Item", password + "  ====  " + user);
                 deleteData(password, user);
             }
             // false : close the menu; true : not close the menu
@@ -148,6 +140,5 @@ public class PasswordActivity extends AppCompatActivity {
         // add to menu
         menu.addMenuItem(deleteItem);
     };
-
 
 }

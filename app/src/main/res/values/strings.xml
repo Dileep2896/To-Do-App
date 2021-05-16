@@ -17,4 +17,5 @@
     <string name="username_email">Username / Email</string>
     <string name="copy">TODO</string>
     <string name="go_back">Go Back</string>
+    <string name="show_hide">Show/Hide</string>
 </resources>
