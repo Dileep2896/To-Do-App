@@ -59,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnPasswords(View view) {
 
-        biometricPrompt.authenticate(promptInfo);
+//        biometricPrompt.authenticate(promptInfo);
+
+        Intent intent = new Intent(MainActivity.this, PasswordActivity.class);
+        startActivity(intent);
 
     }
 

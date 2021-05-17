@@ -9,6 +9,9 @@ import android.util.Log;
 
 public class DatabasePasswordHelper extends SQLiteOpenHelper {
 
+//    private static DatabasePasswordHelper instance;
+//    private static final String PASS_PHASE = "!@#ABC!"; // password to encrypt
+
     private static final String DB_NAME = "PasswordManager.db";
 
     // password table
@@ -23,6 +26,13 @@ public class DatabasePasswordHelper extends SQLiteOpenHelper {
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + USER + " TEXT, "
             + PASSWORD + " TEXT)";
+
+//    static public synchronized DatabasePasswordHelper getInstance(Context context) {
+//        if (instance == null) {
+//            instance = new DatabasePasswordHelper(context);
+//        }
+//        return instance;
+//    }
 
     public DatabasePasswordHelper(Context context) {
         super(context, DB_NAME, null, 1);
@@ -42,7 +52,8 @@ public class DatabasePasswordHelper extends SQLiteOpenHelper {
 
     // create method to insert data in password table
     public boolean insertDataPassword(String user, String password) {
-        SQLiteDatabase db = this.getWritableDatabase();
+
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER, user);
         contentValues.put(PASSWORD, password);
