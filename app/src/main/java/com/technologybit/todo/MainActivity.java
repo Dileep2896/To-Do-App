@@ -17,15 +17,10 @@ public class MainActivity extends AppCompatActivity {
     Button btnAddWork, btnPass;
     TextView tvToDo, tvQuote;
 
-    private BiometricPrompt biometricPrompt;
-    private BiometricPrompt.PromptInfo promptInfo;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Authentication();
 
         // Initialising the views and buttons
         btnAddWork = findViewById(R.id.btnAddWork);
@@ -63,46 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(MainActivity.this, PasswordActivity.class);
         startActivity(intent);
-
-    }
-
-    public void Authentication() {
-        Executor executor = ContextCompat.getMainExecutor(this);
-        biometricPrompt = new BiometricPrompt(MainActivity.this,
-                executor, new BiometricPrompt.AuthenticationCallback() {
-            @Override
-            public void onAuthenticationError(int errorCode,
-                                              @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(getApplicationContext(),
-                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
-                        .show();
-            }
-
-            @Override
-            public void onAuthenticationSucceeded(
-                    @NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                Toast.makeText(getApplicationContext(),
-                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, PasswordActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
-                Toast.makeText(getApplicationContext(), "Authentication failed",
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
-
-        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for my app")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
-                .build();
 
     }
 

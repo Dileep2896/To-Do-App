@@ -1,17 +1,26 @@
 package com.technologybit.todo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+
+import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 
 public class PasswordActivity extends AppCompatActivity {
 
@@ -20,16 +29,26 @@ public class PasswordActivity extends AppCompatActivity {
     DatabasePasswordHelper db;
     List<PasswordManagerList> ps;
     MyCustomListAdapter arrayAdapter;
+    ImageButton ibLock;
+    boolean isAuth = false;
+    boolean lock = true;
+
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
 
+        isAuth = false;
+        Authentication();
+
         // Initializing
         passListView = findViewById(R.id.passListView);
         db = new DatabasePasswordHelper(this);
         ps = new ArrayList<>();
+        ibLock = findViewById(R.id.ibLock);
 
         retrieveData();
 
@@ -74,6 +93,7 @@ public class PasswordActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     public void retrieveData() {
 
         Cursor cursor = db.viewPassData();
@@ -96,10 +116,14 @@ public class PasswordActivity extends AppCompatActivity {
 
         passListView.setOnMenuItemClickListener((position, menu, index) -> {
             PasswordManagerList item = arrayAdapter.getItem(position);
-            if (index == 0) {
+            if (index == 0 && !lock) {
                 String user = item.getUsername();
                 String password = item.getPassword();
                 deleteData(password, user);
+                authenticateOk();
+            } else {
+                Toast.makeText(getBaseContext(), "Please Authenticate Yourself",
+                Toast.LENGTH_SHORT).show();
             }
             // false : close the menu; true : not close the menu
             return false;
@@ -128,6 +152,7 @@ public class PasswordActivity extends AppCompatActivity {
     // ------------------------------ Set Creator For The ListView --------------------------------- //
 
     SwipeMenuCreator creator = menu -> {
+
         // create "delete" item
         SwipeMenuItem deleteItem = new SwipeMenuItem(
                 getApplicationContext());
@@ -139,6 +164,72 @@ public class PasswordActivity extends AppCompatActivity {
         deleteItem.setIcon(R.drawable.ic_baseline_delete_24);
         // add to menu
         menu.addMenuItem(deleteItem);
+
     };
+
+    public void lockUnlock(View view) {
+
+        if (lock) {
+            biometricPrompt.authenticate(promptInfo);
+            ibLock.setImageResource(R.drawable.ic_lock_open);
+            lock = false;
+        } else {
+            ibLock.setImageResource(R.drawable.ic_baseline_lock);
+            lock = true;
+            authenticateNotOK();
+        }
+    }
+
+    public void Authentication() {
+        Executor executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(PasswordActivity.this,
+                executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Toast.makeText(getApplicationContext(),
+                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+
+                Toast.makeText(getApplicationContext(),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                authenticateOk();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(getApplicationContext(), "Authentication failed",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric login for my app")
+                .setSubtitle("Log in using your biometric credential")
+                .setAllowedAuthenticators(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)
+                .build();
+
+    }
+
+    public void authenticateOk() {
+        arrayAdapter.authentication(true);
+        arrayAdapter.notifyDataSetChanged();
+        passListView.setAdapter(arrayAdapter);
+    }
+
+    public void authenticateNotOK() {
+        arrayAdapter.authentication(false);
+        arrayAdapter.notifyDataSetChanged();
+        passListView.setAdapter(arrayAdapter);
+    }
 
 }
