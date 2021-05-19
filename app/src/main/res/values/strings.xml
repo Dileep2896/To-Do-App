@@ -20,4 +20,5 @@
     <string name="show_hide">Show/Hide</string>
     <string name="visibility">TODO</string>
     <string name="lock">TODO</string>
+    <string name="password_update">Update</string>
 </resources>

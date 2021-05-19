@@ -97,4 +97,16 @@ public class DatabasePasswordHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    // update method to update data to python
+    public boolean updateData(String id, String password, String user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID, id);
+        contentValues.put(USER, user);
+        contentValues.put(PASSWORD, password);
+        db.update(TABLE_PASSWORD, contentValues,
+                "ID = ?",new String[] { id });
+        return true;
+    }
+
 }
