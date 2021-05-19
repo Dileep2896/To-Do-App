@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -50,6 +51,8 @@ public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {
         TextView password = view.findViewById(R.id.tvPasswordField);
         ImageButton ib = view.findViewById(R.id.ibCopy);
         ImageButton ibVisibility = view.findViewById(R.id.ibVisibility);
+        ImageView ivPerson = view.findViewById(R.id.ivPerson);
+        ImageView ivKey = view.findViewById(R.id.ivKey);
 
         ibVisibility.setTag(clicked);
 
@@ -59,8 +62,8 @@ public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {
         ib.setEnabled(false);
         ib.setClickable(false);
 
-        username.setText("User     " + ps.getUsername());
-        password.setText("Pass     ************");
+        username.setText(ps.getUsername());
+        password.setText("************");
 
         if (auth) {
             if (position % 2 == 0) {
@@ -70,7 +73,7 @@ public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {
             }
         } else {
             ibVisibility.setColorFilter(Color.rgb(240, 84, 84));
-            password.setText("Pass     ************");
+            password.setText("************");
             ib.setAlpha((float) 0.5);
             ib.setEnabled(false);
             ib.setClickable(false);
@@ -81,11 +84,15 @@ public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {
             username.setTextColor(Color.rgb(246, 245, 245));
             password.setTextColor(Color.rgb(81, 194, 213));
             ib.setColorFilter(Color.rgb(246, 245, 245));
+            ivPerson.setColorFilter(Color.rgb(216, 227, 231));
+            ivKey.setColorFilter(Color.rgb(216, 227, 231));
         } else {
             bgShape.setColor(Color.rgb(216, 227, 231));
             username.setTextColor(Color.rgb(57, 62, 70));
             password.setTextColor(Color.rgb(18, 110, 130));
             ib.setColorFilter(Color.rgb(57, 62, 70));
+            ivPerson.setColorFilter(Color.rgb(22, 135, 167));
+            ivKey.setColorFilter(Color.rgb(22, 135, 167));
         }
 
         ib.setOnClickListener(view1 -> {
@@ -104,21 +111,22 @@ public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {
             if (auth) {
                 if(((Boolean) ibVisibility.getTag())){
                     ibVisibility.setImageResource(R.drawable.ic_baseline_visibility_off);
-                    password.setText("Pass     ************");
+                    password.setText("************");
                     ibVisibility.setTag(Boolean.FALSE);
                     ib.setAlpha((float) 0.5);
                     ib.setEnabled(false);
                     ib.setClickable(false);
                 } else {
                     ibVisibility.setImageResource(R.drawable.ic_baseline_visibility);
-                    password.setText("Pass     " + ps.getPassword());
+                    password.setText(ps.getPassword());
                     ibVisibility.setTag(Boolean.TRUE);
                     ib.setAlpha((float) 1);
                     ib.setEnabled(true);
                     ib.setClickable(true);
                 }
             } else {
-                Toast.makeText(getContext(), "Please Authenticate Yourself, Click The Lock",
+                Toast.makeText(getContext(), "Please Authenticate Yourself.\n" +
+                                "Click The Lock 🔒",
                         Toast.LENGTH_SHORT).show();
             }
         });

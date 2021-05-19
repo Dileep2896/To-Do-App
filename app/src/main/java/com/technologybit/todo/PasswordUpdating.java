@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 public class PasswordUpdating extends AppCompatActivity {
 
     EditText tvUser, tvPassword;
-    String user, password;
+    String user, password, encryptPassword;
     DatabasePasswordHelper db;
 
     @SuppressLint("SetTextI18n")
@@ -34,6 +35,8 @@ public class PasswordUpdating extends AppCompatActivity {
 
     public void btnUpdatePass(View view) {
 
+        Log.i("Encrypted Password", encryptPassword);
+
         db = new DatabasePasswordHelper(this);
         Cursor cursor = db.getItemID(password, user);
         int itemID = -1;
@@ -41,8 +44,7 @@ public class PasswordUpdating extends AppCompatActivity {
             itemID = cursor.getInt(0);
         }
 
-        boolean isUpdate = db.updateData(Integer.toString(itemID),
-                tvPassword.getText().toString(), tvUser.getText().toString());
+        boolean isUpdate = db.updateData(Integer.toString(itemID), tvUser.getText().toString());
 
         if (isUpdate) {
             finish();
@@ -57,10 +59,14 @@ public class PasswordUpdating extends AppCompatActivity {
         Intent intent = getIntent();
 
         user = intent.getStringExtra("User");
-        password = intent.getStringExtra("Password");
+        password = intent.getStringExtra("EncryptPassword");
+        encryptPassword = intent.getStringExtra("Password");
 
         tvUser.setText(user);
-        tvPassword.setText(password);
+        tvPassword.setText(encryptPassword);
+        tvPassword.setClickable(false);
+        tvPassword.setEnabled(false);
+        tvPassword.setAlpha((float) 0.5);
 
     }
 

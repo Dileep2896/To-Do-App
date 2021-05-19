@@ -71,6 +71,9 @@ public class PasswordActivity extends AppCompatActivity {
 
         if (lock) {
             biometricPrompt.authenticate(promptInfo);
+//            arrayAdapter.authentication(true);
+//            arrayAdapter.notifyDataSetChanged();
+//            passListView.setAdapter(arrayAdapter);
             ibLock.setImageResource(R.drawable.ic_lock_open);
             lock = false;
         } else {
@@ -160,10 +163,16 @@ public class PasswordActivity extends AppCompatActivity {
                 Intent intent = new Intent(PasswordActivity.this,
                         PasswordUpdating.class);
                 intent.putExtra("User", user);
+                try {
+                    intent.putExtra("EncryptPassword", ed.encrypt(password, "!@!abc"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 intent.putExtra("Password", password);
                 startActivityForResult(intent, 1);
             } else {
-                Toast.makeText(getBaseContext(), "Please Authenticate Yourself",
+                Toast.makeText(getBaseContext(), "Please Authenticate Yourself.\n" +
+                        "Click The Lock 🔒",
                         Toast.LENGTH_SHORT).show();
             }
             // false : close the menu; true : not close the menu

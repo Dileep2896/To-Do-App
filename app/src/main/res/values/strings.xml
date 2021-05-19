@@ -21,4 +21,6 @@
     <string name="visibility">TODO</string>
     <string name="lock">TODO</string>
     <string name="password_update">Update</string>
+    <string name="userLogo">TODO</string>
+    <string name="passLogo">TODO</string>
 </resources>
