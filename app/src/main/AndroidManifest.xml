@@ -12,10 +12,10 @@
         android:roundIcon="@mipmap/ic_finallogo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDo">
-        <activity android:name=".PasswordUpdating" />
-        <activity android:name=".PasswordAdding" />
-        <activity android:name=".PasswordActivity" />
-        <activity android:name=".CategoryActivity" />
+        <activity android:name=".Password.PasswordUpdating" />
+        <activity android:name=".Password.PasswordAdding" />
+        <activity android:name=".Password.PasswordActivity" />
+        <activity android:name=".Category.Helper.CategoryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

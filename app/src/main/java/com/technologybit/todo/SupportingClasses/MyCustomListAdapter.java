@@ -1,4 +1,4 @@
-package com.technologybit.todo;
+package com.technologybit.todo.SupportingClasses;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
@@ -17,6 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.technologybit.todo.Password.PasswordManagerList;
+import com.technologybit.todo.R;
+
 import java.util.List;
 
 public class MyCustomListAdapter extends ArrayAdapter<PasswordManagerList> {

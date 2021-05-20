@@ -1,4 +1,4 @@
-package com.technologybit.todo;
+package com.technologybit.todo.Password;
 
 public class PasswordManagerList {
 

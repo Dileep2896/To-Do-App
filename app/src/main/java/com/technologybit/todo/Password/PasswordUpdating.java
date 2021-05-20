@@ -1,4 +1,4 @@
-package com.technologybit.todo;
+package com.technologybit.todo.Password;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.technologybit.todo.R;
 
 public class PasswordUpdating extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.technologybit.todo;
+package com.technologybit.todo.Password;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -17,6 +17,10 @@ import android.widget.Toast;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.technologybit.todo.R;
+import com.technologybit.todo.SupportingClasses.EncryptionDecryption;
+import com.technologybit.todo.SupportingClasses.MyCustomListAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;

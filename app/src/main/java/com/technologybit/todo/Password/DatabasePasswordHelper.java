@@ -1,4 +1,4 @@
-package com.technologybit.todo;
+package com.technologybit.todo.Password;
 
 import android.content.ContentValues;
 import android.content.Context;

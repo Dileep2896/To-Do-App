@@ -1,4 +1,4 @@
-package com.technologybit.todo;
+package com.technologybit.todo.Category.Helper;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.technologybit.todo.R;
 
 import java.util.Objects;
 

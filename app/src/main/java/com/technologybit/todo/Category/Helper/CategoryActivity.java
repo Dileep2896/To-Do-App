@@ -1,4 +1,4 @@
-package com.technologybit.todo;
+package com.technologybit.todo.Category.Helper;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.technologybit.todo.R;
 
 import java.util.ArrayList;
 

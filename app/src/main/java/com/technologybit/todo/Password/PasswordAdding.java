@@ -1,4 +1,4 @@
-package com.technologybit.todo;
+package com.technologybit.todo.Password;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.technologybit.todo.R;
+import com.technologybit.todo.SupportingClasses.GeneratePassword;
 
 public class PasswordAdding extends AppCompatActivity {
 

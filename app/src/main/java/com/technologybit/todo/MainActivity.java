@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.technologybit.todo.Category.Helper.CategoryActivity;
+import com.technologybit.todo.Password.PasswordActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btnAddWork, btnPass;
