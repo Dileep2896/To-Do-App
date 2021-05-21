@@ -114,7 +114,7 @@ public class PasswordActivity extends AppCompatActivity {
     // storing data to database password table
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void storeData(String user, String password) throws Exception {
-        String encryptPass = ed.encrypt(password, "!@!abc");
+        String encryptPass = ed.encrypt(password, "YOUR PASSWORD");
         if (!user.equals("") && !password.equals("") &&
                 db.insertDataPassword(user, encryptPass)) {
             ps.clear();
@@ -138,7 +138,7 @@ public class PasswordActivity extends AppCompatActivity {
                 String password = cursor.getString(2);
                 String decryptPass = null;
                 try {
-                    decryptPass = ed.decrypt(password, "!@!abc");
+                    decryptPass = ed.decrypt(password, "YOUR PASSWORD");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -168,7 +168,7 @@ public class PasswordActivity extends AppCompatActivity {
                         PasswordUpdating.class);
                 intent.putExtra("User", user);
                 try {
-                    intent.putExtra("EncryptPassword", ed.encrypt(password, "!@!abc"));
+                    intent.putExtra("EncryptPassword", ed.encrypt(password, "YOUR PASSWORD"));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
